@@ -1,0 +1,130 @@
+/* 전역 폰트 설정 */
+body {
+    font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif; /* 우선순위대로 폰트 설정 */
+}
+
+/* 채팅 컨테이너 스타일 */
+.chat-container {
+    background-color:  #2a2b38; /* 더 어두운 배경과 조화 */
+    border-radius: 15px; /* 둥근 모서리 추가 */
+    padding: 20px;
+    height: 100%; /* 높이를 100%로 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* 입력창이 맨 아래에 위치하도록 설정 */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); /* 컨테이너 그림자 추가 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
+}
+
+/* 채팅박스 */
+.chat-box {
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+    flex-grow: 1; /* 채팅박스가 화면을 채울 수 있도록 설정 */
+    margin-bottom: 20px;
+    padding: 15px; /* 여백 추가 */
+    max-height: 855px; /* 높이를 제한하여 스크롤이 생기게 설정 */
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 메시지 간 간격 */
+    border-radius: 10px;
+    background-color: #2e2f3f; /* 채팅 박스 배경색 */
+    box-shadow: inset 0px 2px 10px rgba(0, 0, 0, 0.3); /* 내부 그림자 */
+    box-sizing: border-box; /* 스크롤 여부에 상관없이 크기 고정 */
+}
+
+/* 스크롤바 숨기기 */
+.chat-box::-webkit-scrollbar {
+    width: 0; /* 스크롤바의 너비를 0으로 설정 */
+    height: 0; /* 가로 스크롤바도 숨기기 */
+}
+
+.chat-box {
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+    -ms-overflow-style: none; /* IE에서 스크롤바 숨기기 */
+}
+
+/* 메시지 공통 스타일 */
+.message {
+    padding: 12px 12px 2px 12px; /* 말풍선 안 여백 */
+    margin: 0px 5px;
+    border-radius: 10px; /* 더 둥근 말풍선 */
+    word-wrap: break-word; /* 긴 단어 줄 바꿈 */
+    display: inline-block;
+    position: relative;
+    max-width: 70%; /* 최대 너비 제한 */
+    line-height: 1.4; /* 줄 간격 늘림 */
+    white-space: pre-wrap; /* 줄 바꿈 허용 */
+    font-size: 12px; /* 폰트 크기 */
+    height: auto; /* 내용에 따라 높이 조정 */
+    box-sizing: border-box; /* 크기 고정 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 말풍선 그림자 */
+}
+
+/* 사용자 메시지 */
+.message.user {
+    background-color: #4169e1;  /* 로얄 블루로 변경 */
+    color: #ffffff; /* 흰색 텍스트 */
+    align-self: flex-end; /* 오른쪽 정렬 */
+    text-align: left; /* 왼쪽 정렬 */
+    margin-left: auto;
+    box-shadow: 0 2px 8px rgba(65, 105, 225, 0.3); /* 말풍선 그림자 */
+    font-weight: 500; /* 폰트 두께 */
+}
+
+/* 상대방 메시지 */
+.message.other {
+    background-color: #424361;  /* 좀 더 밝은 톤으로 변경 */
+    color: #ffffff; /* 흰색 텍스트 */
+    align-self: flex-start; /* 왼쪽 정렬 */
+    text-align: left; /* 왼쪽 정렬 */
+    margin-right: auto;
+    box-shadow: 0 2px 8px rgba(58, 59, 85, 0.3); /* 말풍선 그림자 */
+    font-weight: 600; /* 기본 폰트 두께 */
+}
+
+/* 입력창 컨테이너 */
+.chat-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+    border-top: 1px solid #2a2b3d; /* 어두운 색상 경계 */
+    background-color: #1a1b27; /* 어두운 배경 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-sizing: border-box; /* 크기 고정 */
+}
+
+/* 입력창 텍스트박스 */
+.chat-input input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border-radius: 25px; /* 둥근 입력창 */
+    border: 1px solid #3e4060; /* 어두운 테두리 */
+    outline: none;
+    background-color: #12131c; /* 어두운 입력 배경 */
+    color: #ffffff; /* 흰색 텍스트 */
+    font-size: 14px;
+    height: 45px; /* 고정 높이 설정 */
+    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.4); /* 내부 그림자 */
+    box-sizing: border-box; /* 크기 고정 */
+}
+
+/* 전송 버튼 */
+.chat-input button {
+    background-color: #0057ff; /* 버튼 배경 (푸른 계열) */
+    border: none;
+    height: 45px; /* 입력창과 동일한 높이 */
+    padding: 0 20px; /* 좌우 패딩만 설정 */
+    border-radius: 25px; /* 둥근 버튼 */
+    color: #ffffff; /* 흰색 텍스트 */
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* 버튼 그림자 */
+    transition: background-color 0.3s ease; /* 호버 시 부드러운 전환 */
+}
+
+.chat-input button:hover {
+    background-color: #2979ff; /* 버튼 호버 색상 */
+}

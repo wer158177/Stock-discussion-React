@@ -1,0 +1,208 @@
+.posts-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 16px;
+    overflow-y: auto;
+    height: calc(100vh - 60px); /* 헤더 높이 고려 */
+    -ms-overflow-style: none;  /* IE, Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.posts-container::-webkit-scrollbar {
+    display: none;            /* Chrome, Safari, Opera */
+}
+
+.post {
+    background: #2a2b38;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid #ffeba7;
+}
+
+.post-user-info {
+    flex: 1;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 15px;
+    color: #c4c3ca;
+    text-decoration: none;
+}
+
+.timestamp {
+    font-size: 13px;
+    color: #c4c3ca;
+}
+
+.post-content {
+    padding: 12px 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #c4c3ca;
+    white-space: pre-wrap;
+}
+
+.post-image {
+    margin: 0 -12px;
+}
+
+.post-image img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.post-actions {
+    display: flex;
+    padding: 4px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+.action-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+    color: #c4c3ca;
+    font-weight: 500;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: rgba(255, 235, 167, 0.1);
+}
+
+.action-button.active {
+    color: #c4c3ca;
+}
+
+.action-button.active-like {
+    color: #f12727 !important;
+}
+
+.action-button.active-like svg {
+    fill: #ff4b4b !important;
+}
+
+.action-text {
+    margin-left: 4px;
+}
+
+.action-stats {
+    padding: 12px 8px;
+    display: flex;
+    justify-content: space-between;
+    color: #65676B;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .posts-container {
+      padding: 8px;
+    }
+    
+    .post {
+      margin-bottom: 8px;
+    }
+}
+
+.scroll-trigger {
+  height: 20px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  padding: 10px;
+  text-align: center;
+  color: #c4c3ca;
+  font-size: 14px;
+}
+
+.post-content-section {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-comments-section {
+    background: #2f3042;
+    padding: 12px;
+}
+
+.comments-header {
+    color: #c4c3ca;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comment-input-wrapper {
+    margin-top: 12px;
+    padding: 8px 0;
+}
+
+.comment-input {
+    width: 100%;
+    background: #2a2b38;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: #c4c3ca;
+    font-size: 14px;
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: #4169e1;
+}
+
+/* 기존 CSS에 추가 */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.tag {
+    background-color: rgba(65, 105, 225, 0.2);
+    color: #dadde6;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tag:hover {
+    background-color: rgba(65, 105, 225, 0.3);
+}

@@ -1,0 +1,147 @@
+.comment-item {
+  display: flex;
+  padding: 8px 0;
+  gap: 12px;
+}
+
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.comment-content {
+  flex: 1;
+  background: #2a2b38;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+.comment-username {
+  font-weight: 600;
+  color: #c4c3ca;
+  font-size: 13px;
+  margin-right: 8px;
+}
+
+.comment-text {
+  color: #c4c3ca;
+  font-size: 13px;
+  margin: 4px 0 0;
+}
+
+.comments-list {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 12px 0;
+  padding-right: 8px;
+  position: relative;
+  isolation: isolate;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.comments-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.comment-load-more {
+  color: #4169e1;
+  background: none;
+  border: none;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.comment-load-more:hover {
+  color: #ffeba7;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comment-timestamp {
+  color: #65676B;
+  font-size: 12px;
+}
+
+.comment-actions {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.comment-like-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #c4c3ca;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.2s ease;
+}
+
+.comment-like-button:hover {
+  color: #ff4b4b;
+}
+
+.comment-like-button.active {
+  color: #ff4b4b;
+}
+
+.comment-like-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.comment-input {
+  flex: 1;
+  background: #2a2b38;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: #c4c3ca;
+  font-size: 14px;
+}
+
+.comment-submit {
+  background: #4169e1;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.comment-submit:hover {
+  background: #365bb7;
+}

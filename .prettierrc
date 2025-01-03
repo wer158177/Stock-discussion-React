@@ -1,0 +1,30 @@
+{
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": true,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "tabWidth": 2,
+  "filePath": "**/*.js",
+  "rangeStart": 0,
+  "rangeEnd": "Infinity",
+  "requirePragma": false,
+  "parser": "babel",
+  "insertPragma": false,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 200
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+.icon-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c4c3ca;
+  transition: all 0.3s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+.icon-button.like:hover {
+  color: #ff4b4b;
+}
+
+.icon-button:not(.like):hover {
+  color: #ffeba7;
+}
+
+.icon-button.svg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-button.active.like {
+  color: #ff4b4b;
+}
+
+.icon-button.active:not(.like) {
+  color: #ffeba7;
+}

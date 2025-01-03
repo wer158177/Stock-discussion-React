@@ -1,0 +1,39 @@
+/* src/components/MainContent.css */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+
+.main-content h2 {
+  color: #333;
+}
+
+.stock-categories {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background-color: #2a2b38;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.category-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3f4064;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.category-button:hover {
+  background-color: #4a4b6a;
+}
+
+.category-button.active {
+  background-color: #007bff;
+}

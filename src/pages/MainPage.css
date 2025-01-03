@@ -1,0 +1,35 @@
+.main-content {
+    display: grid;
+    grid-template-columns: 41% 22% 35%;  /* 고정 비율 설정 */
+    gap: 20px;
+    padding: 20px;
+    height: 80vh; /* 높이 조정 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 각 섹션별 기본 스타일 */
+.stock-chart, .chat, .posts {
+    background-color: #2a2b38;
+    border-radius: 10px;
+    padding: 20px;
+    overflow: hidden;  /* 내용이 넘치지 않도록 설정 */
+    height: 100%;     /* 높이를 부모 높이에 맞춤 */
+    box-sizing: border-box;
+}
+
+/* 각 영역별 최소/최대 크기 제한 */
+.stock-chart {
+    min-width: 400px;
+    max-width: 100%;
+}
+
+.chat {
+    min-width: 200px;
+    max-width: 100%;
+}
+
+.posts {
+    min-width: 300px;
+    max-width: 100%;
+}
