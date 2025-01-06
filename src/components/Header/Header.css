@@ -127,10 +127,20 @@
   position: relative;
 }
 
+.bell-icon {
+  font-size: 1.2rem;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.notification-button:hover .bell-icon {
+  color: #007bff;
+}
+
 .notification-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -8px;
+  right: -8px;
   background-color: #ff4444;
   color: white;
   border-radius: 50%;
@@ -167,4 +177,22 @@
   padding: 15px;
   text-align: center;
   color: #666;
+}
+
+/* 기존 CSS에 추가 */
+.header-logo {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.header-logo .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.header-logo .logo:hover {
+  color: #007bff;
 }

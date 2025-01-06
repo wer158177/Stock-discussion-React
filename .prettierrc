@@ -15,7 +15,7 @@
   "tabWidth": 2,
   "filePath": "**/*.js",
   "rangeStart": 0,
-  "rangeEnd": "Infinity",
+  "rangeEnd": 999999,
   "requirePragma": false,
   "parser": "babel",
   "insertPragma": false,
