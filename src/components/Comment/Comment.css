@@ -3,21 +3,6 @@
   width: 100%;
   background: #2a2b38;
   padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  max-height: 400px; /* 최대 높이 설정 */
-  overflow-y: scroll; /* 세로 스크롤 활성화 */
-}
-
-/* 스크롤바 숨김 처리 */
-.comments-list::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-.comments-list {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 
 /* 댓글 아이템 */
@@ -25,21 +10,11 @@
   display: flex;
   gap: 12px;
   margin-bottom: 16px;
-  padding: 12px;
-  background: #1f2029;
-  border-radius: 8px;
-  border: 1px solid rgba(65, 105, 225, 0.2);
-  transition: transform 0.2s ease;
-}
-
-.comment-item:hover {
-  transform: translateX(5px);
-  border-left: 3px solid #4169e1;
 }
 
 .comment-avatar {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 2px solid #4169e1;
 }
@@ -53,19 +28,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .comment-username {
   font-weight: 600;
   color: #ffeba7;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.comment-username:hover {
-  color: #4169e1;
 }
 
 .comment-timestamp {
@@ -82,9 +52,9 @@
 }
 
 .comment-text {
-  color: #e4e4e4;
-  font-size: 14px;
-  line-height: 1.6;
+  color: #c4c3ca;
+  font-size: 13px;
+  line-height: 1.5;
   flex: 1;
 }
 
@@ -98,11 +68,6 @@
   align-items: center;
   gap: 4px;
   padding: 0;
-  transition: color 0.3s ease;
-}
-
-.comment-like-button:hover {
-  color: #ff4b4b;
 }
 
 .comment-like-button svg {
@@ -120,17 +85,12 @@
   padding: 0;
   margin-bottom: 12px;
   padding-left: 20px;
-  transition: color 0.3s ease;
-}
-
-.comment-reply-button:hover {
-  color: #4169e1;
 }
 
 /* 대댓글 영역 */
 .comment-replies {
-  margin-left: 44px;
-  border-left: 2px solid rgba(65, 105, 225, 0.2);
+  margin-left: 24px;
+  border-left: 2px solid rgba(65, 105, 225, 0);
   padding-left: 12px;
   margin-top: 8px;
 }
@@ -139,10 +99,6 @@
   display: flex;
   gap: 12px;
   margin-bottom: 24px;
-  padding: 12px;
-  background: #1f2029;
-  border-radius: 8px;
-  border: 1px solid rgba(65, 105, 225, 0.2);
 }
 
 .comment-replies .comment-avatar {
