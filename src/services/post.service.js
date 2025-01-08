@@ -1,17 +1,15 @@
 import axiosInstance from './api.config';
 
-const POST_API = '/post-service/api/post/random';
+const POST_API = '/post-service/api/post';
 
 export const postService = {
-  // 게시물 목록 조회
-  getPosts: async (page, size = 5) => {
+  getPosts: async (page = 0, size = 10) => {
     try {
-      const response = await axiosInstance.get(
-        `${POST_API}?page=${page}&size=${size}`,
-        {
-          withCredentials: true,
-        }
-      );
+      console.log(`Fetching posts for page ${page}`);
+      const response = await axiosInstance.get(`${POST_API}/random`, {
+        params: { page, size }
+      });
+      console.log('Posts response:', response.data);
       return response.data;
     } catch (error) {
       console.error('Posts fetch error:', error);
@@ -19,20 +17,19 @@ export const postService = {
     }
   },
 
-  // 게시물 생성
   createPost: async postData => {
     try {
-      const formData = new FormData();
-      formData.append('content', postData.content);
-      if (postData.image) {
-        formData.append('image', postData.image);
-      }
+      const postBody = {
+        title: postData.title,
+        content: postData.content,
+        tags: postData.hashtags,
+        image: null
+      };
 
-      const response = await axiosInstance.post(POST_API, formData, {
+      const response = await axiosInstance.post(`${POST_API}/write`, postBody, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
+          'Content-Type': 'application/json'
+        }
       });
       return response.data;
     } catch (error) {
@@ -40,21 +37,29 @@ export const postService = {
       throw error;
     }
   },
-
-  // 게시물 좋아요/취소
-  toggleLike: async postId => {
+  likePost: async postId => {
     try {
+      console.log(`Liking post: ${postId}`);
       const response = await axiosInstance.post(
-        `${POST_API}/${postId}/like`,
-        {},
-        {
-          withCredentials: true,
-        }
+        `${POST_API}/${postId}/like`
       );
       return response.data;
     } catch (error) {
-      console.error('Like toggle error:', error);
+      console.error('Like post error:', error);
       throw error;
     }
   },
+
+  unlikePost: async postId => {
+    try {
+      console.log(`Unliking post: ${postId}`);
+      const response = await axiosInstance.delete(
+        `${POST_API}/${postId}/like`
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Unlike post error:', error);
+      throw error;
+    }
+  }
 };

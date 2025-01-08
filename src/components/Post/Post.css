@@ -172,10 +172,8 @@
 
 .comment-input {
     width: 100%;
-    background: #2a2b38;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 8px 16px;
+    border-radius: 20px; 
     color: #c4c3ca;
     font-size: 14px;
 }

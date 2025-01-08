@@ -65,11 +65,11 @@ const LoginSignUp = () => {
           email: formData.email,
           password: formData.password,
         });
-        console.log('Login Response:', response); // 디버깅
-
-        // 메시지가 '로그인 성공'이면 홈으로 리다이렉트
-        if (response.message === '로그인 성공') {
-          navigate('/home', { replace: true });
+        console.log('Login Response:', response);
+  
+        if (response.status === 200) {
+          console.log('로그인 성공, 쿠키:', document.cookie);
+          navigate('/home');
         }
       } else {
         await authService.register({
@@ -84,8 +84,8 @@ const LoginSignUp = () => {
         setIsLogin(true);
       }
     } catch (err) {
-      setError(err.response?.data?.message || '인증에 실패했습니다.');
       console.error('Authentication error:', err);
+      setError(err.response?.data?.message || '인증에 실패했습니다.');
     } finally {
       setLoading(false);
     }

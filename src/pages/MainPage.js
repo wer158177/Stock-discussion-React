@@ -8,7 +8,9 @@ import StockCategory from '../components/StockCategory/StockCategory';
 import './MainPage.css';
 
 function MainPage() {
-  const [selectedStock, setSelectedStock] = useState('KOSPI');
+  const [selectedStock, setSelectedStock] = useState('KRW-BTC'); // 초기값 변경
+
+  console.log('현재 선택된 종목:', selectedStock); // 디버깅용 로그
 
   return (
     <div className="page-container">

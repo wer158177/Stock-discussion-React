@@ -1,19 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { alarmService } from '../../services/alarm.service';
+import { getUserIdFromCookie } from '../../utils/auth';
 import './Header.css';
 
 function Header() {
   const location = useLocation();
-  const isLoginPage =
-    location.pathname === '/' || location.pathname === '/login';
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/register';
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications] = useState([
-    { id: 1, message: '새로운 알림이 있습니다.', isRead: false },
-    { id: 2, message: '주가가 5% 상승했습니다.', isRead: false },
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const userId = getUserIdFromCookie();
+  const [connectionError, setConnectionError] = useState(false);
+
+  useEffect(() => {
+    console.log('Current pathname:', location.pathname); // 디버깅용
+    console.log('isLoginPage:', isLoginPage); // 디버깅용
+    console.log('userId:', userId); // 디버깅용
+
+    let eventSource = null;
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    const connectAlarmService = () => {
+      if (!userId || isLoginPage) return; // isLoginPage 체크 추가
+      
+      try {
+        console.log('알람 서비스 연결 시도... userId:', userId);
+        eventSource = alarmService.subscribeToAlarms(
+          userId,
+          (newAlarm) => {
+            console.log('새로운 알람 수신:', newAlarm);
+            setNotifications(prev => [...prev, {
+              id: Date.now(),
+              message: newAlarm.content, // content만 추출
+              isRead: false
+            }]);
+            setConnectionError(false);
+            retryCount = 0;
+          }
+        );
+
+        eventSource.onerror = (error) => {
+          console.error('알람 서비스 연결 에러:', error);
+          eventSource.close();
+          setConnectionError(true);
+
+          if (retryCount < maxRetries) {
+            console.log(`재연결 시도 ${retryCount + 1}/${maxRetries}...`);
+            retryCount++;
+            setTimeout(connectAlarmService, 3000); // 3초 후 재시도
+          }
+        };
+      } catch (error) {
+        console.error('알람 서비스 초기화 실패:', error);
+        setConnectionError(true);
+      }
+    };
+
+    connectAlarmService();
+
+    return () => {
+      if (eventSource) {
+        console.log('알람 서비스 연결 종료');
+        eventSource.close();
+      }
+    };
+  }, [userId, isLoginPage, location.pathname]); // location.pathname 의존성 추가
+
 
   return (
     <header className='header'>

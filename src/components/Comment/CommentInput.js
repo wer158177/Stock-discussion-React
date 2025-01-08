@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-const CommentInput = ({ postId, onAddComment }) => {
+const CommentInput = ({ postId, parentId, onAddComment }) => {
   const [comment, setComment] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (comment.trim()) {
-      onAddComment(postId, comment);
+      onAddComment(postId, comment, parentId);
       setComment('');
     }
   };

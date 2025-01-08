@@ -1,6 +1,6 @@
 import axiosInstance from './api.config';
 
-const AUTH_API = '/user-service/api/user';
+const AUTH_API = '/user-service/api/auth';
 
 export const authService = {
   // 로그인 요청
@@ -16,28 +16,28 @@ export const authService = {
 
       console.log('Login Response:', response); // 디버깅 로그
 
-      // 응답 그대로 반환
-      return response.data;
+      // 응답 전체 반환
+      return response;
     } catch (error) {
-      console.error('Login Error:', error.response || error); // 디버깅 로그
+      console.error('Login Error:', error); // 디버깅 로그
       throw error; // 에러를 호출한 쪽으로 전달
     }
   },
 
-  // 인증 상태 확인
-  checkAuthStatus: async () => {
-    try {
-      const response = await axiosInstance.get(`${AUTH_API}/status`, {
-        withCredentials: true,
-      });
+  // // 인증 상태 확인
+  // checkAuthStatus: async () => {
+  //   try {
+  //     const response = await axiosInstance.get(`${AUTH_API}/status`, {
+  //       withCredentials: true,
+  //     });
 
-      console.log('Auth Status Response:', response); // 디버깅 로그
-      return response.data;
-    } catch (error) {
-      console.error('Auth status check failed:', error.response || error); // 디버깅 로그
-      return { isAuthenticated: false };
-    }
-  },
+  //     console.log('Auth Status Response:', response); // 디버깅 로그
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('Auth status check failed:', error.response || error); // 디버깅 로그
+  //     return { isAuthenticated: false };
+  //   }
+  // },
 
   // 회원가입 요청
   register: async userData => {

@@ -1,0 +1,116 @@
+/* CreatePostModal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #2a2b38;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  color: #c4c3ca;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #ffeba7;
+  font-size: 1.5rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #3f4064;
+  border-radius: 8px;
+  background-color: #1f2029;
+  color: #c4c3ca;
+  font-size: 14px;
+}
+
+.modal-textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #3f4064;
+  border-radius: 8px;
+  background-color: #1f2029;
+  color: #c4c3ca;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.file-input-wrapper {
+  margin-bottom: 20px;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #3f4064;
+  color: #c4c3ca;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.file-input-label:hover {
+  background-color: #4a4b6a;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #c4c3ca;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancel-button, .submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button {
+  background-color: #3f4064;
+  color: #c4c3ca;
+}
+
+.submit-button {
+  background-color: #4169e1;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #4a4b6a;
+}
+
+.submit-button:hover {
+  background-color: #365bb7;
+}
+

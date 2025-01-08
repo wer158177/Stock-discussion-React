@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { fetchCandleData } from '../../services/candle.service';
 import './StockChart.css';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   TimeScale,
+  Tooltip,
+  Legend,
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Chart } from 'react-chartjs-2';
@@ -20,12 +23,60 @@ ChartJS.register(
   CandlestickController,
   CandlestickElement,
   annotationPlugin,
-  zoomPlugin
+  zoomPlugin,
+  Tooltip,
+  Legend
 );
 
-function StockChart({ selectedStock }) {
-  console.log('현재 선택된 종목:', selectedStock);
+function StockChart({ selectedStock = 'KRW-BTC' }) {
   const [timeRange, setTimeRange] = useState('day');
+  const [candleData, setCandleData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [range, setRange] = useState({ min: null, max: null });
+  const chartRef = useRef(null);
+
+  const getCandleData = async (interval, stock) => {
+    try {
+      setLoading(true);
+      const data = await fetchCandleData(interval, stock);
+      setCandleData(data);
+
+      // 데이터의 범위를 설정
+      if (data.length > 0) {
+        const min = new Date(data[0].t).getTime();
+        const max = new Date(data[data.length - 1].t).getTime();
+        setRange({ min, max });
+      }
+    } catch (error) {
+      console.error('캔들 데이터 조회 실패:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    let interval;
+    switch(timeRange) {
+      case 'realtime':
+        interval = 'minutes';
+        break;
+      case 'day':
+        interval = 'daily';
+        break;
+      case 'week':
+        interval = 'weekly';
+        break;
+      case 'month':
+        interval = 'monthly';
+        break;
+      case 'year':
+        interval = 'yearly';
+        break;
+      default:
+        interval = 'daily';
+    }
+    getCandleData(interval, selectedStock);
+  }, [timeRange, selectedStock]);
 
   const getTimeInterval = (range) => {
     switch(range) {
@@ -44,51 +95,12 @@ function StockChart({ selectedStock }) {
     }
   };
 
-  const generateDummyData = (count) => {
-    const data = [];
-    let lastClose = 100; // 시작 가격
-    const now = new Date();
-    const interval = getTimeInterval(timeRange);
-  
-    for (let i = 0; i < count; i++) {
-      const date = new Date(now);
-      switch(interval.unit) {
-        case 'hour':
-          date.setHours(date.getHours() - (count - 1 - i));
-          break;
-        case 'day':
-          date.setDate(date.getDate() - (count - 1 - i));
-          break;
-        case 'week':
-          date.setDate(date.getDate() - ((count - 1 - i) * 7));
-          break;
-        case 'month':
-          date.setMonth(date.getMonth() - (count - 1 - i));
-          break;
-      }
-  
-      const volatility = 2; // 변동성
-      const change = (Math.random() - 0.5) * volatility; // 무작위 변화
-      const close = lastClose * (1 + change / 100);
-      const open = lastClose; // 시가는 이전 종가와 동일
-      const high = Math.max(open, close) + Math.random(); // 고가는 시가와 종가 중 큰 값 + 변동
-      const low = Math.min(open, close) - Math.random(); // 저가는 시가와 종가 중 작은 값 - 변동
-  
-      data.push({
-        x: date.getTime(),
-        o: parseFloat(open.toFixed(2)),
-        h: parseFloat(high.toFixed(2)),
-        l: parseFloat(low.toFixed(2)),
-        c: parseFloat(close.toFixed(2)),
-      });
-  
-      lastClose = close; // 현재 종가를 다음 데이터의 기준으로 사용
+  const resetZoom = () => {
+    const chart = chartRef.current;
+    if (chart) {
+      chart.resetZoom();
     }
-  
-    return data;
   };
-  
-  
 
   const options = {
     responsive: true,
@@ -128,50 +140,92 @@ function StockChart({ selectedStock }) {
       }
     },
     plugins: {
+      tooltip: {
+        enabled: true,
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            const { o, h, l, c } = context.raw;
+            return `Open: ${o}, High: ${h}, Low: ${l}, Close: ${c}`;
+          }
+        }
+      },
+      legend: {
+        display: false
+      },
       zoom: {
         pan: {
           enabled: true,
           mode: 'x',
-          modifierKey: null,  // 수정키 없이도 패닝 가능
+          onPan: ({ chart }) => {
+            const xScale = chart.scales.x;
+            const min = range.min;
+            const max = range.max;
+            
+            // 범위를 벗어난 경우 강제로 범위 내로 이동
+            if (xScale.min < min || xScale.max > max) {
+              console.log('범위를 벗어났습니다. 초기 상태로 복원합니다.');
+              resetZoom();
+            }
+          },
+          rangeMin: {
+            x: range.min,
+          },
+          rangeMax: {
+            x: range.max,
+          }
         },
         zoom: {
           wheel: {
-            enabled: false,  // 휠 줌 비활성화
+            enabled: true,
+            modifierKey: 'ctrl', // Ctrl 키를 눌러야만 줌 가능
           },
           pinch: {
-            enabled: false   // 핀치 줌 비활성화
+            enabled: true,
           },
           drag: {
-            enabled: false   // 드래그 줌 비활성화
+            enabled: true,
+            modifierKey: 'ctrl', // Ctrl 키를 눌러야만 줌 가능
+          },
+          mode: 'x',
+          onZoom: ({ chart }) => {
+            const xScale = chart.scales.x;
+            const min = range.min;
+            const max = range.max;
+
+            // 범위를 벗어난 경우 강제로 범위 내로 이동
+            if (xScale.min < min || xScale.max > max) {
+              console.log('범위를 벗어났습니다. 초기 상태로 복원합니다.');
+              resetZoom();
+            }
+          },
+          rangeMin: {
+            x: range.min,
+          },
+          rangeMax: {
+            x: range.max,
           }
         }
       }
     }
   };
 
-  const getData = (timeRange) => {
-    // 선택된 종목에 따라 다른 데이터 반환
-    switch(selectedStock) {
-      case 'KOSPI':
-        return generateDummyData(30);
-      case 'SAMSUNG':
-        return generateDummyData(20);
-      default:
-        return generateDummyData(10);
-    }
-  };
-
   const data = {
     datasets: [{
-      label: 'KOSPI',
-      data: getData(timeRange),
+      label: selectedStock,
+      data: candleData,
       color: {
-        up: '#ef5350',  // 빨간색 (상승)
-        down: '#26a69a',    // 초록색 (하락)
-        unchanged: '#888888' // 회색 (변동없음)
+        up: '#ef5350',
+        down: '#26a69a',
+        unchanged: '#888888'
       }
     }]
   };
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <div>
@@ -207,11 +261,12 @@ function StockChart({ selectedStock }) {
           연간
         </button>
       </div>
+      <button onClick={resetZoom}>초기 상태로 복원</button>
       <div className="stock-chart-container">
-        <Chart type="candlestick" data={data} options={options} />
+        <Chart ref={chartRef} type="candlestick" data={data} options={options} />
       </div>
     </div>
   );
-};
+}
 
 export default StockChart;

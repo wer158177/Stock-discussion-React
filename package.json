@@ -1,6 +1,7 @@
 {
   "name": "stock-frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:8084",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -15,6 +16,8 @@
     "cra-template": "1.2.0",
     "date-fns": "^4.1.0",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "lightweight-charts": "^4.2.2",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
@@ -57,6 +60,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.3",
     "globals": "^15.14.0",
+    "http-proxy-middleware": "^3.0.3",
     "prettier": "^3.4.2"
   }
 }

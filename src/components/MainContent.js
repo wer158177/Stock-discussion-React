@@ -2,32 +2,19 @@
 
 import React, { useState } from 'react';
 import StockChart from './StockChart/StockChart';
+import StockCategory from './StockCategory/StockCategory';
 import Chat from './Chat/Chat';
+import './MainContent.css';
 
 function MainContent() {
-  const [selectedStock, setSelectedStock] = useState('KOSPI');
-  
-  const stockCategories = [
-    { id: 'KOSPI', name: 'KOSPI' },
-    { id: 'KOSDAQ', name: 'KOSDAQ' },
-    { id: 'SAMSUNG', name: '삼성전자' },
-    { id: 'SK', name: 'SK하이닉스' },
-    { id: 'LG', name: 'LG전자' }
-  ];
+  const [selectedStock, setSelectedStock] = useState('KRW-BTC');
 
   return (
     <main className="main-content">
-      <div className="stock-categories">
-        {stockCategories.map(stock => (
-          <button
-            key={stock.id}
-            className={`category-button ${selectedStock === stock.id ? 'active' : ''}`}
-            onClick={() => setSelectedStock(stock.id)}
-          >
-            {stock.name}
-          </button>
-        ))}
-      </div>
+      <StockCategory 
+        selectedStock={selectedStock} 
+        setSelectedStock={setSelectedStock} 
+      />
       
       <section className="stock-chart">
         <StockChart selectedStock={selectedStock} />
